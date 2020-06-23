@@ -20,18 +20,17 @@ pipeline{
             }
         }
 
-        stage('Checking ports and all '){
+        stage('Check for ports'){
             steps{
                 script{
 				
-					Integer status = sh(script: 'sudo netstat -tnlp | grep 4000  >> /dev/null &&  echo 0 || echo 1 ', returnStdout: true)
-                    Integer y =0
+		Integer status = sh(script: 'sudo netstat -tnlp | grep 4000  >> /dev/null &&  echo 0 || echo 1 ', returnStdout: true)
+                Integer y =0
 					
-					
-					println("x = " + x); 
+		println("x = " + x); 
                     
-                    if ( status.equals(y) ){
-                        sh "echo 'Port 4000 found in running condition '"
+                if ( status.equals(y) ){
+                    sh "echo 'Port 4000 found in running condition '"
 						
                     }
                 }
