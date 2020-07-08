@@ -1,0 +1,68 @@
+- hosts: all
+  tasks:
+    - name: Install System packages
+      apt: name={{ item }} state=latest update_cache=yes
+      loop:
+        - 'apt-transport-https'
+        - 'ca-certificates'
+        - 'curl'
+        - 'software-properties-common'
+        - 'python3-pip'
+        - 'virtualenv'
+        - 'python3-setuptools'
+
+    - name: Add Docker GPG apt Key
+      apt_key:
+         url: https://download.docker.com/linux/ubuntu/gpg
+         state: present
+
+    - name: Add Docker Repository
+      apt_repository:
+         repo: deb https://download.docker.com/linux/ubuntu bionic stable
+         state: present
+
+
+    - name: Update apt and install docker-ce
+      apt:
+        update_cache=yes
+        name=docker-ce
+        state=latest
+
+    - name: Install Docker Module for Python
+      pip:
+         name: docker
+    - name: Get Dockerfile from github
+      get_url:
+         url: https://raw.githubusercontent.com/deviljoshi/DevOps/master/Dockerfile
+         dest: /home/ansible/Dockerfile
+         mode: '0777'
+    - name: Build image using cache source
+      docker_image:
+        name: jenkins
+        tag: v1
+        build:
+                path: /home/ansible/
+
+    - name: Create a directory if it does not exist
+      file:
+         path: /home/ubuntu/myjenkins
+         state: directory
+         mode: '0777'
+
+    - name: set vm.max_count
+      command: "sysctl -w vm.max_map_count=262144"
+
+    - name: Start container
+      docker_container:
+        name: myjenkins
+        image: jenkins:v1
+        state: started
+        detach: yes
+        published_ports:
+          - "8080:8080"
+          - "50000:50000"
+        volumes:
+          - "/home/ubuntu/myjenkins:/var/jenkins_home"
+          - "/var/run/docker.sock:/var/run/docker.sock"
+            # - name: start docker
+            #      command: "docker run -d --name jenkins -v /home/ubuntu/myjenkins:/var/jenkins_home -p 8080:8080 -p 50000:50000 jenkins:v1"
