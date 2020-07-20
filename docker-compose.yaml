@@ -1,22 +1,24 @@
 version: '2.4'
 services:
-  jenkins_server:
+  jenkins:
     image: jenkins:v1
     ports:
-      - "80:8080"
+      - "8080:8080"
       - "50000:50000"
     networks:
-      - jenkins
+      - sonarjenkins
+    environment:
+      - JENKINS_OPTS="--prefix=/centralexJenkins"
     volumes:
-      - /home/ubuntu/data/jenkins/myjenkins:/var/jenkins_home
+      - /home/ubuntu/data/main_jenkins:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
-  sonarqube_server:
+  sonarqube:
     image: sonarqube:lts
     ports:
       - "9000:9000"
       - "9092:9092"
     networks:
-      - jenkins
+      - sonarjenkins
     environment:
       SONARQUBE_JDBC_USERNAME: db_name
       SONARQUBE_JDBC_PASSWORD: pass
@@ -27,7 +29,7 @@ services:
         target: /opt/sonarqube
 
 networks:
-  jenkins:
+  sonarjenkins:
 
 volumes:
   sonar:
