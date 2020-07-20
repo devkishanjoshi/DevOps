@@ -36,6 +36,7 @@
          url: https://raw.githubusercontent.com/deviljoshi/DevOps/master/Dockerfile
          dest: /home/ansible/Dockerfile
          mode: '0777'
+         
     - name: Build image using cache source
       docker_image:
         name: jenkins
@@ -51,18 +52,27 @@
 
     - name: set vm.max_count
       command: "sysctl -w vm.max_map_count=262144"
+      
+   - name: Get docker-compose file
+      get_url:
+         url: https://raw.githubusercontent.com/deviljoshi/DevOps/master/docker-compose.yaml
+         dest: /home/ansible/docker-compose.yaml
+         mode: '0777'
+      
+   - name: Create containers using docker-compose
+     command: "docker-compose up"
 
-    - name: Start container
-      docker_container:
-        name: myjenkins
-        image: jenkins:v1
-        state: started
-        detach: yes
-        published_ports:
-          - "8080:8080"
-          - "50000:50000"
-        volumes:
-          - "/home/ubuntu/myjenkins:/var/jenkins_home"
-          - "/var/run/docker.sock:/var/run/docker.sock"
+#    - name: Start container
+#      docker_container:
+#        name: myjenkins
+#        image: jenkins:v1
+#        state: started
+#        detach: yes
+#        published_ports:
+#          - "8080:8080"
+#          - "50000:50000"
+#        volumes:
+#          - "/home/ubuntu/myjenkins:/var/jenkins_home"
+#          - "/var/run/docker.sock:/var/run/docker.sock"
             # - name: start docker
             #      command: "docker run -d --name jenkins -v /home/ubuntu/myjenkins:/var/jenkins_home -p 8080:8080 -p 50000:50000 jenkins:v1"
