@@ -1,0 +1,30 @@
+version: '2'
+services:
+  jenkins:
+    image: jenkins:v1
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    networks:
+      - sonarjenkins
+    environment:
+      - JENKINS_OPTS="--prefix=/centralexJenkins"
+      - TZ="Asia/Kolkata"
+    volumes:
+      - /home/ubuntu/myjenkins:/var/jenkins_home    # Mount jenkins dir
+      - /var/run/docker.sock:/var/run/docker.sock   # mount docker socket
+      - /home/ubuntu/.aws/credentials:/var/jenkins_home/.aws/credentials # Mount AWS creds 
+  sonarqube:
+    image: sonarqube:lts
+    ports:
+      - "9000:9000"
+      - "9092:9092"
+    networks:
+      - sonarjenkins
+    environment:
+      SONARQUBE_JDBC_USERNAME: {{ USERNAME }}   # Need to create in database 
+      SONARQUBE_JDBC_PASSWORD: {{ PASSWORD }}   
+      SONARQUBE_JDBC_URL: jdbc:postgresql://{{ RDS_END_POINT }}:{{ PORT }}/{{ DATABASE_NAME }}
+
+networks:
+  sonarjenkins:
