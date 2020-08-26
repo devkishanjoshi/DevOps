@@ -1,0 +1,85 @@
+- name: Install System packages
+  apt: name={{ item }} state=latest update_cache=yes
+  loop:
+    - 'apt-transport-https'
+    - 'ca-certificates'
+    - 'curl'
+    - 'software-properties-common'
+    - 'python3-pip'
+    - 'virtualenv'
+    - 'python3-setuptools'
+
+- name: Add Docker GPG apt Key
+  apt_key:
+      url: https://download.docker.com/linux/ubuntu/gpg
+      state: present
+
+- name: Add Docker Repository
+  apt_repository:
+      repo: deb https://download.docker.com/linux/ubuntu bionic stable
+      state: present
+
+
+- name: Update apt and install docker-ce
+  package:
+    name: docker-ce
+    state: present
+
+- name: add docker for ubuntu user
+  command: usermod -aG docker ubuntu 
+
+
+- name: Install Docker Module for Python
+  pip: 
+    name: docker
+    version: '3' 
+
+- name: copy Dockerfile
+  copy:
+      src: Dockerfile
+      dest: /home/ubuntu/Dockerfile
+      owner: ubuntu
+      group: ubuntu
+      mode: '0755'
+      
+- name: Build Jenkins image using cache source
+  command: docker build -f /home/ubuntu/Dockerfile  -t jenkins:required . 
+# docker_image:
+#     name: jenkins
+#     tag: required
+#     build:
+#         path: /home/ubuntu/
+#     source: build
+
+- name: Create a directory if it does not exist
+  file:
+    path: /home/ubuntu/myjenkins
+    state: directory
+    mode: '0755'
+    owner: ubuntu
+    group: ubuntu
+
+- name: set vm.max_count
+  command: "sysctl -w vm.max_map_count=262144"
+
+- name: permenent set vm.max_count 
+  blockinfile:
+    path: /etc/sysctl.conf
+    block: |
+      vm.max_map_count=262144
+  
+- name: Get docker-compose file
+  copy:
+    src: docker-compose.yml
+    dest: /home/ubuntu/docker-compose.yml
+    mode: '0644'
+    owner: ubuntu
+    group: ubuntu
+    
+- name: Update apt and install docker-compose
+  package:
+    name: docker-compose
+    state: present
+  
+- name: Create containers using docker-compose
+  command: "docker-compose -f /home/ubuntu/docker-compose.yml up -d"

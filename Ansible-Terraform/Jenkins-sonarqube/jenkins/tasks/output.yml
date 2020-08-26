@@ -1,0 +1,11 @@
+
+- name: wait for Jenkins container to be created
+  command: sleep 90
+  
+- name: register output
+  command: cat /home/ubuntu/myjenkins/secrets/initialAdminPassword
+  register: output
+
+- name: Print Jenkins Initial
+  debug: 
+    msg: "Jenkins Initial Password: {{ output.stdout }}"

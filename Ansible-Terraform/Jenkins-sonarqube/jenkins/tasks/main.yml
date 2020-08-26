@@ -1,0 +1,12 @@
+# Copy aws Credentials to mount inside container
+- name: configure aws creds 
+  include_tasks: aws_creds_copy.yml
+
+# Install docker and make necessary configurations and start Jenkins and sonar containers 
+- name: Install Docker start Jenkins and sonar containers 
+  include_tasks: install-docker.yml
+
+# Print Jenkins Initial login password 
+- name: Jenkins Password
+  include_tasks: output.yml
+

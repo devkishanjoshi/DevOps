@@ -1,0 +1,15 @@
+- name: 'Create the AWS config directory'
+  file: 
+    path: /home/ubuntu/.aws
+    state: directory
+    owner: ubuntu
+    group: ubuntu
+    mode: 0755
+
+- name: 'Copy AWS CLI credentials'
+  template: 
+    src: credentials.j2
+    dest: /home/ubuntu/.aws/credentials
+    owner: ubuntu
+    group: ubuntu
+    mode: 0600
