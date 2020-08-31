@@ -1,0 +1,12 @@
+---
+- name: Install System packages
+  apt: name={{ item }} state=latest update_cache=yes
+  loop:
+    - 'wget'
+    - 'ca-certificates'
+    - 'zip'
+    - 'net-tools'
+    - 'vim'
+    - 'nano'
+    - 'tar' 
+    - 'netcat' 

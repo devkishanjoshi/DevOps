@@ -1,0 +1,13 @@
+- name: Install Docker 
+  command: bash /home/ubuntu/docker-install.sh
+
+
+- name: Run docker-compose up 
+  command: docker-compose -f /home/ubuntu/{{ item }} up -d 
+  with_items:
+    - zoonavigator.yml
+    - kafkaManager.yml
+    - prometheus-Grafana.yml
+
+
+ 

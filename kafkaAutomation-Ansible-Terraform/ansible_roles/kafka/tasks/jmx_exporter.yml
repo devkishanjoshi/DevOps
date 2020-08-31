@@ -1,0 +1,7 @@
+- name: Download export rules file
+  get_url: 
+    url: "{{ jmx_configfile_kafka }}"
+    dest: /home/ubuntu/prometheus/kafka.yml 
+
+
+  

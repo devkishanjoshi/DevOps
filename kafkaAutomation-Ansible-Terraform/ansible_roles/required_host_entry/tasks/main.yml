@@ -1,0 +1,11 @@
+- name: Create temporary file for /etc/hosts
+  template:
+    src: "hosts.j2"
+    dest: "/etc/myhosts"
+- name: "Append /etc/hosts with content of temporary file"
+  shell: cat /etc/myhosts >> /etc/hosts
+
+- name: "Delete temporary file"
+  file:
+    path: /etc/myhosts
+    state: absent

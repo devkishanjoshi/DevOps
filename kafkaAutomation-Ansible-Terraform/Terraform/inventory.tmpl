@@ -1,0 +1,14 @@
+[zookeeper]
+%{ for index,ip in zookeeper-ip ~}
+ubuntu@${zookeeper-ip[index]}   
+%{ endfor ~}
+
+[kafka]
+%{ for index,ip in kafka-ip ~}
+ubuntu@${kafka-ip[index]}   
+%{ endfor ~}
+
+[zk-tools]
+%{ for index,ip in zk-tools-ip ~}
+ubuntu@${zk-tools-ip[index]}   
+%{ endfor ~}

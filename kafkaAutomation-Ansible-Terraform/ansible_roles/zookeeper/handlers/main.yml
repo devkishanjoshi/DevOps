@@ -1,0 +1,11 @@
+---
+# handlers file for zookeeper
+- name: Sleep for 15 seconds
+  command: sleep 15
+  listen: restart zookeeper
+
+- name: Restart service if Not running
+  service:
+    name: zookeeper
+    state: started
+  listen: restart zookeeper

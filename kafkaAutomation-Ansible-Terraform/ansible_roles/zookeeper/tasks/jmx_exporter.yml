@@ -1,0 +1,7 @@
+- name: Download export rules file
+  get_url: 
+    url: "{{ jmx_configfile_zookeeper }}"
+    dest: /home/ubuntu/prometheus/zookeeper.yml 
+
+
+  

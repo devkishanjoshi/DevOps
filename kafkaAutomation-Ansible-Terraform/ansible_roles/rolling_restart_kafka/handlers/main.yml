@@ -1,0 +1,11 @@
+---
+# handlers file for kafka
+- name: Sleep for 15 seconds
+  command: sleep 15
+  listen: restart kafka
+
+- name: Restart service if Not running
+  service:
+    name: kafka
+    state: started
+    listen: restart kafka

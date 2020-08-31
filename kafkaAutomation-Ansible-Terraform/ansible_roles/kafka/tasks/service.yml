@@ -1,0 +1,14 @@
+---
+- name: Copy kafka.service systemd file
+  copy: 
+    src:  kafka.service
+    dest: /etc/systemd/system/kafka.service
+
+- name: Reload daemon and Start kafka service
+  systemd:
+    name: kafka
+    state: started
+    enabled: yes
+    daemon_reload: yes
+  notify:
+    - restart kafka   

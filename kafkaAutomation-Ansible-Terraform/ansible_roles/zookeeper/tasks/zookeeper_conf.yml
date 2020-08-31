@@ -1,0 +1,26 @@
+- name: Disable RAM Swap
+  shell: sysctl vm.swappiness=1
+
+- name: Permanent Disable RAM Swap
+  blockinfile:
+    path: /etc/sysctl.conf
+    block: |
+      vm.swappiness=1
+
+- name: Create zookeeper data directory
+  file:
+    path: /data/zookeeper
+    state: directory
+    mode: '0755'
+    owner: 'ubuntu'
+    group: 'ubuntu'
+    recurse: yes
+
+- name: Create zookeeper data log directory
+  file:
+    path: /var/zookeeper/log
+    state: directory
+    mode: '0755'
+    owner: 'ubuntu'
+    group: 'ubuntu'
+    recurse: yes

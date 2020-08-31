@@ -1,0 +1,32 @@
+---
+# tasks file for kafka
+- name:  Disable RAM Swap 
+  shell: sysctl vm.swappiness=1
+
+- name: Permenent Disable RAM Swap 
+  blockinfile:
+    path: /etc/sysctl.conf
+    block: |
+      vm.swappiness=1
+
+- name: Permanent change file open limits
+  blockinfile:
+    path: /etc/security/limits.conf
+    block: |
+      * hard nofile 100000
+      * soft nofile 100000
+
+- name: Reboot machine
+  reboot:
+    reboot_timeout: 3600  
+
+- name: Create kafka data directory
+  file:
+    path: /data/kafka
+    state: directory
+    mode: '0755'
+    owner: 'ubuntu'
+    group: 'ubuntu'
+    recurse: yes
+
+

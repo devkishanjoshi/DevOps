@@ -1,0 +1,15 @@
+- name: copy zookeeper.properties 
+  copy: 
+    src: zookeeper.properties
+    dest: /home/ubuntu/zookeeper.properties 
+    mode: '0755'
+    owner: 'ubuntu'
+    group: 'ubuntu'
+
+- name: copy zookeeper id file
+  template:
+    src: "id.j2"
+    dest: "/data/zookeeper/myid"
+    mode: '0755'
+    owner: 'ubuntu'
+    group: 'ubuntu'

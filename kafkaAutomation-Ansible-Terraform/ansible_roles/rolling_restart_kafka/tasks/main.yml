@@ -1,0 +1,21 @@
+---
+- name: Restart kafka 
+  systemd:
+    name: kafka
+    state: restarted
+  notify:
+    - restart kafka 
+
+- name: Restart kafka 
+  systemd:
+    name: kafka
+    state: started
+  notify:
+    - restart kafka 
+
+- name: Restart kafka 
+  systemd:
+    name: kafka
+    state: started
+  notify:
+    - restart kafka 

@@ -1,0 +1,13 @@
+- name: Copy necessary files
+  copy: 
+    src: "{{ item }}" 
+    dest: /home/ubuntu/
+    owner: ubuntu
+    group: ubuntu
+    mode: '0755'
+  with_items:
+    - docker-install.sh
+    - zoonavigator.yml
+    - kafkaManager.yml
+    - prometheus-Grafana.yml
+    - prometheus-config.yml

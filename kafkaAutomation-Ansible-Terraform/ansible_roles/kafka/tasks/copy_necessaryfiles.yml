@@ -1,0 +1,8 @@
+---
+- name: Copy server.properties file 
+  template:
+    src: "server.properties.j2"
+    dest: "/home/ubuntu/server.properties"
+    mode: '0755'
+    owner: 'ubuntu'
+    group: 'ubuntu'

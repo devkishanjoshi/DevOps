@@ -1,0 +1,14 @@
+---
+# tasks file for kafka
+- name: create kafka configurations
+  include_tasks: kafka_conf.yml
+
+- name: Copy necessary files 
+  include_tasks: copy_necessaryfiles.yml
+
+- name: jmx exporter  
+  include_tasks:  jmx_exporter.yml
+  
+- name: Create service file 
+  include_tasks:  service.yml
+

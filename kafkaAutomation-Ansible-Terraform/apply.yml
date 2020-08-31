@@ -1,0 +1,31 @@
+# ansible  all  -a id --private-key /home/ubuntu/ansible.pem
+# ansible-playbook apply.yml -i Terraform/inventory --private-key /home/ubuntu/ansible.pem
+---
+  # Create entry in /etc/hosts file 
+  - hosts: all
+    roles: 
+      - required_host_entry  
+  
+  # Install Java, NecessarySoftwares, Kafka zip and JmxExporter     
+  - hosts: kafka,zookeeper
+    roles:
+      - java  
+      - necessary_softwares
+      - jmx_exporter
+
+  # Configure Zookeeper in quoroum mode
+  - hosts: zookeeper
+    roles:
+      - zookeeper
+
+  # Configure Kafka in quoroum mode
+  - hosts: kafka
+    roles:
+      - kafka
+  
+  # Configure Prometheus, Grafana, ZooNavigator, KafkaManager 
+  - hosts: zk-tools
+    roles: 
+      - zk-tools 
+  
+  

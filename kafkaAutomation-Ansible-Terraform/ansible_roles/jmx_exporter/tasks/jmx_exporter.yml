@@ -1,0 +1,13 @@
+---  
+- name: create prometheus directory 
+  file:
+    path: /home/ubuntu/prometheus
+    state: directory
+    mode: '0755'
+    owner: 'ubuntu'
+    group: 'ubuntu'
+
+- name: Download prometheus jmx exporter
+  get_url: 
+    url: "{{ jmx_exporter_url }}"
+    dest: /home/ubuntu/prometheus/jmx_exporter.jar   

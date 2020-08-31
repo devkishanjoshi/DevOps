@@ -1,0 +1,5 @@
+---
+# Install necessary packages
+- include_tasks: software.yml
+- include_tasks: kafka.yml
+  

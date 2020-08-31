@@ -1,0 +1,3 @@
+---
+# defaults file for zookeeper
+jmx_configfile_zookeeper: https://raw.githubusercontent.com/prometheus/jmx_exporter/master/example_configs/zookeeper.yaml

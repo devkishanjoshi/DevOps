@@ -1,0 +1,13 @@
+---
+# tasks file for zookeeper
+- name: Zookeeper configuration 
+  include_tasks: zookeeper_conf.yml
+
+- name: copy necessary files 
+  include_tasks: copy_necessaryfiles.yml
+
+- name: jmx exporter  
+  include_tasks:  jmx_exporter.yml
+
+- name: create service file 
+  include_tasks:  service.yml

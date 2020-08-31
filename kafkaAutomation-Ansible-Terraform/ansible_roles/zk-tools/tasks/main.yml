@@ -1,0 +1,5 @@
+- name: Copy Necesaary Files
+  include_tasks: copy_necessaryfiles.yml
+
+- name: Run Containers (Prometheus, Grafana, ZooNavigator, KafkaManager)
+  include_tasks: run_tools.yml

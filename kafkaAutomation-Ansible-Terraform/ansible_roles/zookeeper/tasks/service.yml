@@ -1,0 +1,12 @@
+- name: copy zookeeper.service 
+  copy: 
+    src:  zookeeper.service
+    dest: /etc/systemd/system/zookeeper.service
+- name: reload daemon and start zookeeper service
+  systemd:
+    name: zookeeper
+    state: restarted
+    enabled: yes
+    daemon_reload: yes
+  notify:
+    - restart zookeeper

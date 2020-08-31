@@ -1,0 +1,4 @@
+---
+# defaults file for necessary_softwares/
+kafka_version: 2.5.0
+scala_version: 2.12
