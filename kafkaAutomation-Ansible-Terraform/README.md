@@ -24,7 +24,7 @@
 # Terraform apply
 ```
 
-### What will be created with following Terraform and ansible: 
+### What will be created with following Terraform: 
   * This creates 3 kafka instances, 3 zookeeper instances and 1 UI instance.
   * This also created one Terraform/inventory file which can be used for configuration management [ansible] 
 
