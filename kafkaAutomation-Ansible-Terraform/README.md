@@ -10,13 +10,13 @@
 ### What needs to be change in role section: 
   * change variables in defaults section. 
   
-## What to change in Terraform and ansible_roles section 
+### What to change in Terraform and ansible_roles section 
   * update ansible.cfg file with necessary details 
   * Edit variables.tf file with necessary configuration details [ security groups, AMI, Instance Type etc.. ]
 
     *[Note: It's better to use t3.medium Instance Type]*
 
-## Steps for configuration 
+### Steps for configuration 
 ```
 # cd Terraform 
 # Terraform init
@@ -29,7 +29,7 @@
   * This also created one Terraform/inventory file which can be used for configuration management [ansible] 
 
 
-## Now use ansible to configure these instances.
+### Now use ansible to configure these instances.
 ```
 # ansible  all  -a id --private-key  {{ private key path }}
 # ansible-playbook apply.yml -i Terraform/inventory {{ private key path }}
