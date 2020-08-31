@@ -6,10 +6,12 @@ DevOps tools configuration and Automation Guide.
 
 2. Ansible-Terraform: 
    > Contains Ansible roles and their uses with Terrafom
-     * **Configure Jenkins and sonarqube with ansible and Terraform**
+     * Configure Jenkins and sonarqube with ansible and Terraform
+     
         ***[Note: A README.md file is attched with each section]***
         
 3. kafkaAutomation-Ansible-Terraform: 
    > Contains Ansible roles and their uses with Terrafom
-      * **Configure Apache kafka in quorum mode with this**
+      * Configure Apache kafka in quorum mode with this
+      
       ***[ A README.md file is attched with each section]***
