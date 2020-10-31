@@ -8,7 +8,7 @@ services:
     networks:
       - sonarjenkins
     environment:
-      - JENKINS_OPTS="--prefix=/centralexJenkins"
+      - JENKINS_OPTS="--prefix=/Jenkins"
       - TZ="Asia/Kolkata"
     volumes:
       - /home/ubuntu/myjenkins:/var/jenkins_home    # Mount jenkins dir
